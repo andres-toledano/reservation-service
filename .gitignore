@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.env.bak/
+.env.*
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Flask instance folder and config files
+instance/
+*.db
+*.sqlite3
+*.log
+
+# PyCharm project files
+.idea/
+*.iml
+
+# VS Code settings (por si acaso)
+.vscode/
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# mypy
+.mypy_cache/
+
+# Profiling data
+*.prof
+
+# Unit test / coverage reports
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.tox/
+.junit.xml
+
+# Temporary files
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Docker (si se usa)
+*.pid
+docker-compose.override.yml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs y dumps
+*.log
+*.sql
+dump.rdb
+*.dump
