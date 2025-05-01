@@ -2,7 +2,8 @@ from flask import Blueprint, request, jsonify
 from src.service.reservation_service import ReservationService
 from datetime import datetime
 from src.service.user_service import UserService
-reservation_bp = Blueprint('reservation', __name__, url_prefix='/api/reservations')
+
+reservation_bp = Blueprint('reservation', __name__, url_prefix='/api/reservation')
 
 
 @reservation_bp.route('/', methods=['POST'])
@@ -47,11 +48,3 @@ def get_available_slots():
         return jsonify({'available_slots': slots}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-@reservation_bp.route('/test', methods=['GET'])
-def test():
-    users = UserService.get_all_users()
-    users_dict = [user.to_dict() for user in users]
-    return jsonify(users_dict), 200
-

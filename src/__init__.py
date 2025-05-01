@@ -20,6 +20,6 @@ def create_app():
 
     # Registrar Blueprints
     from src.controller.api_controller import reservation_bp
-    app.register_blueprint(reservation_bp, url_prefix='/api/reservation')
+    app.register_blueprint(reservation_bp)
 
     return app

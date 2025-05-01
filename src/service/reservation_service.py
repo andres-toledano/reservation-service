@@ -19,10 +19,10 @@ class ReservationService:
 
     @staticmethod
     def create_if_available(user_id, classroom_id, start_time, end_time):
-        if ReservationUtils.is_time_slot_available(classroom_id, start_time, end_time):
+        if ReservationUtil.is_time_slot_available(classroom_id, start_time, end_time):
             return ReservationService.create(user_id, classroom_id, start_time, end_time)
         return None
 
     @staticmethod
     def get_available_slots(classroom_id, date):
-        return ReservationUtils.get_available_slots(classroom_id, date)
+        return ReservationUtil.get_available_slots(classroom_id, date)
