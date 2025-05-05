@@ -1,6 +1,7 @@
 from src import db
 from src.model.reservation import Reservation
 from src.util.reservation_util import ReservationUtil
+from src.service.user_service import UserService
 
 
 class ReservationService:
@@ -26,3 +27,20 @@ class ReservationService:
     @staticmethod
     def get_available_slots(classroom_id, date):
         return ReservationUtil.get_available_slots(classroom_id, date)
+
+    @staticmethod
+    def get_reservation_by_user_id(user_id):
+        return Reservation.query.filter_by(user_id=user_id).all()
+
+    @staticmethod
+    def delete_reservation(reservation_id):
+        reservation = Reservation.query.get(reservation_id)
+        if reservation:
+            db.session.delete(reservation)
+            db.session.commit()
+            return True
+        return False
+
+    @staticmethod
+    def get_all_reservations():
+        return Reservation.query.all()

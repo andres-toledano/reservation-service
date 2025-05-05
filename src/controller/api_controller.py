@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from src.service.reservation_service import ReservationService
 from datetime import datetime
-from src.service.user_service import UserService
 
 reservation_bp = Blueprint('reservation', __name__, url_prefix='/api/reservation')
 
@@ -34,6 +33,32 @@ def create_reservation():
         return jsonify({'error': str(e)}), 500
 
 
+@reservation_bp.route('/<int:reservation_id>', methods=['DELETE'])
+def delete_reservation(reservation_id):
+    try:
+        if ReservationService.delete_reservation(reservation_id):
+            return jsonify({'message': 'Reservation deleted successfully'}), 200
+        else:
+            return jsonify({'message': 'Reservation not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@reservation_bp.route('/user/<int:user_id>', methods=['GET'])
+def get_user_reservations(user_id):
+    try:
+        reservations = ReservationService.get_reservation_by_user_id(user_id)
+        return jsonify([{
+            'id': r.id,
+            'user_id': r.user_id,
+            'classroom_id': r.classroom_id,
+            'start_time': r.start_time.isoformat(),
+            'end_time': r.end_time.isoformat()
+        } for r in reservations]), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 @reservation_bp.route('/available', methods=['GET'])
 def get_available_slots():
     classroom_id = request.args.get('classroom_id')
@@ -46,5 +71,20 @@ def get_available_slots():
         date = datetime.strptime(date_str, '%Y-%m-%d').date()
         slots = ReservationService.get_available_slots(classroom_id, date)
         return jsonify({'available_slots': slots}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@reservation_bp.route('/all', methods=['GET'])
+def get_all_reservations():
+    try:
+        reservations = ReservationService.get_all_reservations()
+        return jsonify([{
+            'id': r.id,
+            'user_id': r.user_id,
+            'classroom_id': r.classroom_id,
+            'start_time': r.start_time.isoformat(),
+            'end_time': r.end_time.isoformat()
+        } for r in reservations]), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
